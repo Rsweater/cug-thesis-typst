@@ -51,7 +51,8 @@
   if (text-args == auto) {
     text-args = (
       font: fonts.宋体, size: 字号.小四, 
-      bottom-edge: "descender", top-edge: "ascender"
+      // bottom-edge: "descender", top-edge: "ascender",
+      bottom-edge: 0em, top-edge: 1.0em,
       // cjk-latin-spacing: auto, // 自动添加cjk与latin间距
     )
   }
@@ -132,7 +133,7 @@
   show heading: it => {
     set par(leading: 1.0em, spacing: 1.0em)
     set text(
-      bottom-edge: "descender", top-edge: "ascender",
+      bottom-edge: 0em, top-edge: 1.0em,
       font: array-at(heading-font, it.level),
       size: array-at(heading-size, it.level),
       weight: array-at(heading-weight, it.level),
