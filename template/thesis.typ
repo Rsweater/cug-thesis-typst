@@ -1,7 +1,7 @@
 // 在线包管理器模式
 // #import "@preview/modern-cug-thesis:0.2.4": documentclass, indent
 // 本地模式
-#import "../lib.typ": documentclass, indent
+#import "../lib.typ": documentclass, indent, subpar-grid
 
 // 本模板使用的字体是 Windows、MacOS 系统自带的，本地使用理论上不需要额外安装。
 // 如果是 Web App 上编辑，你需要上传 https://github.com/Rsweater/cug-thesis-typst/tree/main/fonts/Windows-SysFonts 里面所有字体，将 fonts 文件夹上传至模板创建的项目根目录即可，否则 CJK 字符可能无法正常显示。
@@ -219,7 +219,7 @@ Typst 编辑模式有两种。一种是标记模式，一种是脚本模式。
 
 == 图表
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:nju-logo。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
+引用@table:timing @table:timing-tlt，以及@figure:cug-logo。引用图表时，表格和图片建议加上 `table:`和`figure:` 前缀以便引用时方便区分。
 
 #align(center, (stack(dir: ltr)[
   #figure(
@@ -230,7 +230,7 @@ Typst 编辑模式有两种。一种是标记模式，一种是脚本模式。
       [y], [0.3s], [0.4s], [0.8s],
     ),
     caption: [常规表],
-  ) <timing>
+  ) <table:timing>
 ][
   #h(50pt)
 ][
@@ -245,22 +245,65 @@ Typst 编辑模式有两种。一种是标记模式，一种是脚本模式。
       table.hline(),
     ),
     caption: [三线表],
-  ) <timing-tlt>
+  ) <table:timing-tlt>
 ]))
 
 #figure(
   image("images/A-1.1.2校徽图案.jpg", width: 20%),
   caption: [图片测试],
-) <nju-logo>
+) <figure:cug-logo>
 
+
+=== 图标测试小节
+#let fake-image = block(stroke: red, inset: 1em, lorem(10))
+#figure(fake-image, caption: [aaa])
+
+#subpar-grid(
+  figure(fake-image, caption: [Inner caption]), <figure:a>,
+  figure(fake-image, caption: [Inner caption]), <figure:b>,
+  columns: (1fr, 1fr),
+  caption: [Outer caption],
+  label: <figure:full1>,
+)
+
+#figure(fake-image, caption: [aaa])
+
+#subpar-grid(
+  figure(`adas`, caption: [Inner caption]), <figure:c>,
+  figure(fake-image, caption: [Inner caption]), <figure:d>,
+  columns: (1fr, 1fr),
+  caption: [Outer caption],
+  label: <figure:full2>,
+)
+
+=== Another Chapter
+
+#figure(fake-image, caption: [aaa])
+
+#figure(
+  table(
+    columns: 4,
+    stroke: none,
+    table.hline(),
+    [t], [1], [2], [3],
+    table.hline(stroke: .5pt),
+    [y], [0.3s], [0.4s], [0.8s],
+    table.hline(),
+  ),
+  caption: [三线表],
+) <timing-tlt>
+
+See @figure:full1, @figure:a and @figure:b.
+
+See also @figure:full2, @figure:c and @figure:d.
 
 == 数学公式
 
 可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
 
-$ phi.alt := (1 + sqrt(5)) / 2 $ <ratio>
+$ phi.alt := (1 + sqrt(5)) / 2 $ <equation:ratio>
 
-引用数学公式需要加上 `eqt:` 前缀，则由@eqt:ratio，我们有：
+引用数学公式建议加上 `equation:` 前缀，则由@equation:ratio，我们有：
 
 $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
@@ -278,7 +321,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 == 代码块
 
-代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
+代码块支持语法高亮。引用时需要加上 `code:` @code:code-example
 
 #figure(
   ```py
@@ -286,7 +329,7 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
     return x + y
   ```,
   caption:[代码块],
-) <code>
+) <code:code-example>
 
 = 研究生学位论文写作规范
 
@@ -481,7 +524,7 @@ Abstract内容与中文摘要相对应。一般不少于300个英文实词，篇
 
 图序号与图题目：图序号即图的编号，由“图”和从“1”开始的阿拉伯数字组成，图较多时，可分章编号。如第三章第2个图的图序号为“图3.2”；图题目即图的名称，应简明，置于图序号之后，图序号和图题目之间空1个字距，居中置于图的下方。例如： 
 
-例如：@fig:test1 非线性构形状态转移过程示意图  
+例如：@test1 非线性构形状态转移过程示意图  
 
 #figure(
   image("images/示意图1.png", width: 80%),

@@ -1,11 +1,11 @@
 // #import "@preview/anti-matter:0.0.2": anti-front-end
-#import "@preview/i-figured:0.2.4"
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/indent.typ": fake-par
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
 #import "../utils/anonymous-info.typ": anonymous-info
+#import "../utils/number-per-chapter.typ": sub-figure-numbering, figure-numbering, equation-numbering
 
 #let mainmatter(
   // documentclass 传入参数
@@ -39,10 +39,10 @@
   // caption 样式
   caption-leading: 1.0em, 
   caption-size: 字号.五号,
-  // figure 计数
-  show-figure: i-figured.show-figure,
-  // equation 计数
-  show-equation: i-figured.show-equation,
+  // // figure 计数
+  // show-figure: i-figured.show-figure,
+  // // equation 计数
+  // show-equation: i-figured.show-equation,
   ..args,
   it,
 ) = {
@@ -108,11 +108,29 @@
   show raw: set text(font: fonts.等宽)
   // 3.2 脚注样式
   show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
+  set heading(numbering: "1.1")
+  show heading.where(level: 1): it => {
+    counter(math.equation).update(0)
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(figure.where(kind: raw)).update(0)
+    it
+  }
+  show figure.caption: it => {
+    let pattern = "^[^:]+" + sym.space.nobreak + "[\d.]+"
+    show regex(pattern): strong
+    show regex(pattern): emph
+    // show regex(pattern): set text(weight: "bold")
+    // show regex(pattern): set text(style: "italic")
+    it
+  }
+  show figure: set figure(numbering: figure-numbering)
+  show math.equation: set math.equation(numbering: equation-numbering)
   // 3.3 设置 figure 的编号
-  show heading: i-figured.reset-counters
-  show figure: show-figure
+  // show heading: i-figured.reset-counters
+  // show figure: show-figure
   // 3.4 设置 equation 的编号和假段落首行缩进
-  show math.equation.where(block: true): show-equation
+  // show math.equation.where(block: true): show-equation
   // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
   show figure.where(
     kind: table

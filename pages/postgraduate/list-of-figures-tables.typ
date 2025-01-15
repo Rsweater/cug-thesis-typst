@@ -1,4 +1,4 @@
-#import "@preview/i-figured:0.2.4"
+// #import "@preview/i-figured:0.2.4"
 #import "@preview/outrageous:0.1.0"
 #import "../../utils/invisible-heading.typ": invisible-heading
 #import "../../utils/style.typ": 字号, 字体
@@ -64,7 +64,7 @@
     invisible-heading(level: 1, outlined: outlined, title-figures)
     v(title-vspace)
   }
-  i-figured.outline(target-kind: image, title: none)
+  outline(target: figure.where(kind: image), title: none)
 
   // 显示表清单
   v(title-vspace)
@@ -78,7 +78,7 @@
   }
 
   v(title-vspace)
-  i-figured.outline(target-kind: table, title: none)
+  outline(target: figure.where(kind: table), title: none)
 
   // 手动分页
   if (twoside) {
