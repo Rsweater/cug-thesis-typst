@@ -26,7 +26,7 @@
   宋体: ("Times New Roman", "SimSun", "Songti SC"),
   // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
   // 这一行分别是「新罗马体（有衬线英文字体）」、「黑体（Windows）」、「黑体（MacOS）」
-  黑体: ("Times New Roman", "SimHei", "Heiti SC"),
+  黑体: ("Arial", "SimHei", "Heiti SC"),
   // 楷体
   // 这一行分别是「新罗马体（有衬线英文字体）」、「锴体（Windows）」、「楷体（MacOS）」
   // 楷体: ("Times New Roman", "KaiTi", "Kaiti SC"),
