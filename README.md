@@ -94,6 +94,15 @@
 
 如果你的设备是 Windows ，会遇见所有的 `sc` 结尾的字体找不到的提醒，因为这个是 Mac OS 系统字体，可以忽略。模板为了适应不同的平台，模板默认设置了多种字体。但是只要不是两种系统的字体均报 Warning，就不会影响渲染效果。如果不想看报错，可以去 [Rsweater/cug-thesis-typst/tree/main/fonts](https://github.com/Rsweater/cug-thesis-typst/tree/main/fonts) 安装所有字体。
 
+### 按章节拆分文件时， VS Code 怎么指定主文件？
+
+如果按照章节拆分，然后使用 `#include "chapter01_path"`，可以指定主文件，以方便观察右下角字数统计以及避免出现引用报的 Warning (Tinymist Typst 0.12.21特性)。使用方法：
+
+1. 使用 `Ctrl + Shift + P`打开 VS Code 的命令行工具栏，会出现在最上面。
+2. 然后打开需要指定的主文件，然后在输入框通过关键词找到：`Typst： Pin the Main file to the Opening Document` 命令执行。
+
+**提醒：**后面的小齿轮可以设置快捷键哦~
+
 ## 致谢
 
 - 感谢 [modern-nju-thesis](https://github.com/nju-lug/modern-nju-thesis)、[better-thesis](https://github.com/sysu/better-thesis)、[HIT-Thesis-Typst](https://github.com/hitszosa/universal-hit-thesis) 为本模板提供了项目实现思路。
