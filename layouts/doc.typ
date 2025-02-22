@@ -1,6 +1,6 @@
 // 文稿设置，可以进行一些像页面边距这类的全局设置
 #import "../utils/style.typ": show-cn-fakebold
-#import "../utils/indent.typ": fake-par
+#import "../utils/str.typ": to-normal-str
 
 #let doc(
   // documentclass 传入参数
@@ -27,34 +27,10 @@
   show: show-cn-fakebold
   set text(lang: lang)
   set page(margin: margin)
-  show regex("[\p{sc=Hani} 。 ； ， ： “ ”（ ） 、 ？ 《 》] [\p{sc=Hani} 。 ； ， ： “ ”（ ） 、 ？ 《 》]"): it => {
-    let (a, _, b) = it.text.clusters()
-    a + b
-  }
-
-  show list: it => {
-    it
-    fake-par
-  }
-  show figure: it => {
-    it
-    fake-par
-  }
-  show enum: it => {
-    it
-    fake-par
-  }
-  show math.equation.where(block: true): it=>{
-    it
-    fake-par
-  }
-  show link: it => {
-    underline(text(rgb(0, 0, 255), it))
-  }
 
   // 4.  PDF 元信息
   set document(
-    title: (("",)+ info.title).sum(),
+    title: to-normal-str(src: info.title),
     author: info.author,
   )
 

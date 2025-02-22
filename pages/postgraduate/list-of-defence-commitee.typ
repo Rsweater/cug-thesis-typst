@@ -105,7 +105,10 @@
     )
     )
   }
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak() //换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 }
 
 // #set page(margin: 3cm)

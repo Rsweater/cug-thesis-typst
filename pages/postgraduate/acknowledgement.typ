@@ -8,8 +8,11 @@
   outlined: true,
   body,
 ) = {
-  if (not anonymous) {
-    pagebreak(weak: true, to: if twoside { "odd" })
+  if not anonymous {
+    pagebreak() // 换页
+    if twoside {
+      pagebreak() // 空白页
+    }
     [
       #heading(level: 1, numbering: none, outlined: outlined, title) <no-auto-pagebreak>
 

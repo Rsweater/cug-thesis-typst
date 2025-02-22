@@ -19,26 +19,36 @@
   fonts = 字体 + fonts
 
   // 正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
-
   [
-    // #v(1.27em)
     #align(center, par(
-      text(font: fonts.宋体, size: 字号.小二, 
-      weight: abstract-title-weight, "Abstract", 
-      bottom-edge: 0em, top-edge: 1.0em))
+      leading: 1.0em, spacing: 1.0em,
+      text(
+        font: fonts.宋体, size: 字号.小二, 
+        weight: abstract-title-weight, "Abstract", 
+        bottom-edge: 0em, top-edge: 1.0em))
     )
     
-    // #v(1.27em)
-    #set par(leading: leading, justify: true, spacing: spacing)
-    #par(first-line-indent: 2em, body)
-    #set text(font: fonts.宋体, size: 字号.小四)
-    *Key Words*: #(("",)+ keywords.intersperse("; ")).sum()
+    #set text(
+      font: fonts.宋体, size: 字号.小四,
+      bottom-edge: 0em, top-edge: 1.0em,
+    )
+    #set par(
+      leading: leading, justify: true, spacing: spacing, 
+      first-line-indent: (amount: 2em, all: true)
+      )
+
+    #body
+
+    #h(-2.0em)*Key Words*: #(("",)+ keywords.intersperse("; ")).sum()
   ]
+  pagebreak(weak: true) //换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 }
 
 // 测试代码
-// #postgraduate-abstract-en(
-//   keywords: ("keyword1", "keyword2", "keyword3"),
-//   [Abstract内容与中文摘要相对应。一般不少于300个英文实词，篇幅以一页为宜。如需要，字数可以略多。]
-// )
+#postgraduate-abstract-en(
+  keywords: ("keyword1", "keyword2", "keyword3"),
+  [Abstract内容与中文摘要相对应。一般不少于300个英文实词，篇幅以一页为宜。如需要，字数可以略多。]
+)
