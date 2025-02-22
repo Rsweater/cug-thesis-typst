@@ -3,7 +3,7 @@
 // 作者简历
 #let postgraduate-resume(
   anonymous: false,
-  twoside: false,
+  twoside: true,
   info: (:),
 ) = {
   // 如果需要匿名则短路返回
@@ -37,6 +37,24 @@
       "X. X. 江苏省科技进步奖三等奖.排名第2；",
       "2022年度优秀毕业生",
       "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
     ),
     // 4. 研究项目信息
     projects: (
@@ -59,37 +77,51 @@
 
   set text(
   font: 字体.宋体, size: 字号.小四, 
-  top-edge: (20pt-1.0em)*0.7, bottom-edge: -(20pt-1.0em)*0.3
+  top-edge: (20pt-1.0em)*0.7, bottom-edge: (20pt-1.0em)*0.3
   )
   // 1. 基本情况
-  text(font: 字体.黑体, size: 字号.小四)[一、基本情况]
-  par(leading: 1.0em, first-line-indent: 2em)[
+  block[
+    #text(font: 字体.黑体, size: 字号.小四)[一、基本情况]
+    #set par(
+      leading: 1.0em, linebreaks: "simple", first-line-indent: (amount: 2em, all: true))
+    
     姓名：#info.name;#h(2em);性别：#info.gender;#h(2em);民族：#info.nation;#h(2em);出生日期：#info.birthday;#h(2em);籍贯: #info.native-place;
 
     #h(4em);#info.bachelor-time;#h(2em);#info.bachelor-school;#info.bachelor-type;
 
     #h(4em);#info.master-time;#h(2em);#info.master-school;#info.master-type;
     
-    #if (info.doctor-time != "") {
+    #if info.doctor-time != "" {
       h(4em);info.doctor-time;h(2em);info.doctor-school;info.doctor-type;
     }
   ]
+  
   // 2. 学术论文
-  text(font: 字体.黑体, size: 字号.小四)[二、学术论文]
-  par(leading: 1.0em, first-line-indent: 2em, hanging-indent: 2em)[
+  block[
+    #text(font: 字体.黑体, size: 字号.小四)[二、学术论文]
+    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+    
     #info.thesises.join("\n");
   ]
+  
   // 3. 获奖、专利情况
-  text(font: 字体.黑体, size: 字号.小四)[三、获奖、专利情况]
-  par(leading: 1.0em, first-line-indent: 2em, hanging-indent: 2em)[
+  block[
+    #text(font: 字体.黑体, size: 字号.小四)[三、获奖、专利情况]
+    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+    
     #info.awards.join("\n");
   ]
   // 4. 研究项目
-  text(font: 字体.黑体, size: 字号.小四)[四、研究项目]
-  par(leading: 1.0em, first-line-indent: 2em, hanging-indent: 2em)[
+  block[
+    #text(font: 字体.黑体, size: 字号.小四)[四、研究项目]
+    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+    
     #info.projects.join("\n");
   ]
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak() //换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 }
 
-// #postgraduate-resume()
+#postgraduate-resume()

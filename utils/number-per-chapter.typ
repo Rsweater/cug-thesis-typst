@@ -1,4 +1,4 @@
-#import "@preview/subpar:0.2.0"
+#import "@preview/subpar:0.2.1"
 
 #let sub-figure-numbering = (super, sub) => numbering("1.1a", counter(heading).get().first(), super, sub)
 #let figure-numbering = super => numbering("1.1", counter(heading).get().first(), super)

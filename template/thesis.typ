@@ -1,14 +1,14 @@
 // 在线包管理器模式
-// #import "@preview/modern-cug-thesis:0.2.4": documentclass, indent
+// #import "@preview/modern-cug-thesis:0.2.6": documentclass, indent, no-indent, subpar-grid
 // 本地模式
-#import "../lib.typ": documentclass, indent, subpar-grid
+#import "../lib.typ": documentclass, indent, no-indent, subpar-grid, word-count-cjk, total-words
 
 // 本模板使用的字体是 Windows、MacOS 系统自带的，本地使用理论上不需要额外安装。
 // 如果是 Web App 上编辑，你需要上传 https://github.com/Rsweater/cug-thesis-typst/tree/main/fonts/Windows-SysFonts 里面所有字体，将 fonts 文件夹上传至模板创建的项目根目录即可，否则 CJK 字符可能无法正常显示。
 
 #let (
   // 布局函数
-  single-side, doc, mainmatter, mainmatter-end, appendix,
+  single-side, doc, mainmatter, appendix,
   // 页面函数
   fonts-display-page, title-page, decl-page, resume-page, defence-page, 
   abstract, abstract-en, bilingual-bibliography,
@@ -22,8 +22,9 @@
   // 中文摘要、Abstract、目录、图和表清单、正文、致谢、参考文献（、附录）。
   // 单面打印范围，自中文摘要后双面
   single-side: ("title-page", "decl-page", "resume-page", "defence-page"),  
-  // 可自定义字体，先英文字体后中文字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
-  // fonts: (楷体: ("Times New Roman", "FZKai-Z03S")),
+  // 你会发现 Typst 有许多警告，这是因为 modern-nju-thesis 加入了很多不必要的 fallback 字体
+  // 你可以自定义字体消除警告，先英文字体后中文字体，应传入「宋体」、「黑体」、「楷体」、「仿宋」、「等宽」
+  // fonts: (楷体: (name: "Times New Roman", covers: "latin-in-cjk"), "FZKai-Z03S")),
   info: (
     // 论文标题，将展示在题名页与页眉上
     // 多行标题请使用数组传入 `("thesis title", "with part next line")`，
@@ -103,6 +104,24 @@
       "1. X. X. 江苏省科技进步奖三等奖.排名第2；",
       "2. 2022年度优秀毕业生",
       "3. 2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
+      "X. X. 江苏省科技进步奖三等奖.排名第2；",
+      "2022年度优秀毕业生",
+      "2025年度优秀研究生",
     ),
     // 4. 研究项目信息
     projects: (
@@ -153,6 +172,8 @@
 
 // 正文
 #show: mainmatter
+// 字数统计开始
+#show: word-count-cjk
 
 // 可以直接在该文件中编写，Typst 编译足够的快 ~
 // 如果使用分章节存放，记得打开注释之后先预览（VS Code 右上角的预览按钮，快捷键 Ctrl+K V）一下，
@@ -297,6 +318,16 @@ See @figure:full1, @figure:a and @figure:b.
 
 See also @figure:full2, @figure:c and @figure:d.
 
+
+#figure(
+  fake-image,
+  placement: bottom,
+  caption: [底部浮动图片。A floating figure at the tbottombottomop.]
+)
+你可以使用 figure 的 `placement` 属性 #footnote[
+  需要 Typst 版本 >= 0.12.0：#link("https://github.com/typst/typst/releases/tag/v0.12.0")。
+] 来设置类似的浮动图表位置。可用的值有 `top`、`bottom` 与 `none`，分别对应 LaTeX 中的 t、b 与 h。若要实现类似 LaTeX 中 `p` 属性的整页图表，可结合 `pagebreak()` 函数与图片上下的 `h(1fr)` 来实现。
+
 == 数学公式
 
 可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
@@ -330,6 +361,22 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
   ```,
   caption:[代码块],
 ) <code:code-example>
+
+== 缩进
+
+模板的所有段落默认都有首行缩进。如果需要取消缩进，可以使用 `#no-indent`。若需手动缩进，可以使用 `#indent`。
+
+#no-indent 比如，这是一个没有首行缩进的段落。
+
+== 字数统计
+
+正文与附录的的总字数为：#total-words。
+你也可以使用以下命令来使用 `typst` 命令行统计字数 / 字符数：
+
+```bash
+typst query thesis.typ '<total-words>' 2>/dev/null --field value --one
+typst query thesis.typ '<total-characters>' 2>/dev/null --field value --one
+```
 
 = 研究生学位论文写作规范
 
@@ -827,4 +874,4 @@ Stieg M F. 1981. The …… histirians[J].College and Research Libraries, 42(6):
 
 // // 正文结束标志，不可缺少
 // // 这里放在附录后面，使得页码能正确计数
-#mainmatter-end()
+// #mainmatter-end()

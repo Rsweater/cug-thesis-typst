@@ -1,5 +1,4 @@
 // #import "@preview/i-figured:0.2.4"
-#import "@preview/outrageous:0.1.0"
 #import "../../utils/invisible-heading.typ": invisible-heading
 #import "../../utils/style.typ": 字号, 字体
 
@@ -12,47 +11,32 @@
   title-figures: "图清单",
   title-tables: "表清单",
   outlined: false,
-  title-vspace: 18pt,
+  title-vspace: 1em,
   title-text-args: auto,
-  // caption 的 separator
-  separator: "  ",
   // 字体与字号
   font: auto,
   size: 字号.小四,
   // 垂直间距
-  vspace: 14pt,
-  // 是否显示点号
-  fill: auto,
+  above: 20pt-1em,
+  below: 20pt-1em,
   ..args,
 ) = {
   // 1.  默认参数
   fonts = 字体 + fonts
-  if (title-text-args == auto) {
-    title-text-args = (font: fonts.黑体, size: 字号.小二, weight: "regular")
+  if title-text-args == auto {
+    title-text-args = (font: fonts.黑体, size: 字号.小二, weight: "regular", bottom-edge: 0em, top-edge: 1.0em)
   }
   // 字体与字号
-  if (font == auto) {
+  if font == auto {
     font = fonts.宋体
   }
 
   // 2.  正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
-
   // 默认显示的字体
-  set text(font: font, size: size)
-  show outline.entry: outrageous.show-entry.with(
-    // 保留 Typst 基础样式
-    ..outrageous.presets.typst,
-    body-transform: (level, it) => {
-      // 因为好像没找到 separator 的参数，所以这里就手动寻找替换了
-      if (it.has("children") and it.children.at(3, default: none) == [#": "]) {
-        it.children.slice(0, 3).sum() + separator + it.children.slice(4).sum()
-      } else {
-        it
-      }
-    },
-    vspace: (vspace,),
-    fill: (fill,),
+  set text(font: font, size: size, bottom-edge: 0em, top-edge: 1.0em)
+  show outline.entry: set block(
+    above: above,
+    below: below,
   )
 
   // 显示图清单
@@ -81,7 +65,8 @@
   outline(target: figure.where(kind: table), title: none)
 
   // 手动分页
-  if (twoside) {
-    pagebreak() + " "
+  pagebreak(weak: true) //换页
+  if twoside {
+    pagebreak() // 空白页
   }
 }

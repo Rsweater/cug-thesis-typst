@@ -50,9 +50,9 @@
       text(
         font: font, size: size, 
         weight: weight,
-        if (align-type == "justify") {
+        if align-type == "justify" {
           justify-text(with-tail: true, body)
-        } else if (align-type == "default") {
+        } else if align-type == "default" {
           body
         } else {align(align-type, body)}
       )
@@ -78,7 +78,7 @@
   }
   let docname-en = docname.with(font: 字体.宋体, size: 字号.三号, weight: "regular")
   let title = docname.with(font: 字体.黑体, size: 字号.二号)
-  let title-en = docname-en.with(font: 字体.宋体, size: 字号.二号)
+  let title-en = docname-en.with(font: "Times New Roman", size: 字号.二号, weight: "bold")
   let address-en = docname-en
   let anonymous-info = anonymous-info.with(anonymous: anonymous)
 
@@ -159,7 +159,10 @@
       text(datetime-zh-display(info.submit-date, anonymous: anonymous), font: 字体.宋体, size: 字号.三号)
     )
   }
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak() // 换页
+  if twoside {
+    pagebreak() // 空白页
+  }
  
 
   // 英文题名页
@@ -242,9 +245,12 @@
       }
     )
   }
-  pagebreak(weak: true, to: if twoside { "odd" })
+  pagebreak() // 换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 }
 
 // 封面测试代码
-// #import "/template/thesis-info.typ": thesis-info  
-// #show: postgraduate-titlepage(info: thesis-info, anonymous: true)
+#import "../../mythesis/others/test-text.typ": thesis-info  
+#show: postgraduate-titlepage(info: thesis-info, anonymous: true)

@@ -1,4 +1,4 @@
-#import "../../utils/style.typ": 字号, 字体
+#import "../../utils/style.typ": 字号, 字体, show-cn-fakebold
 
 // 研究生中文摘要页
 #let postgraduate-abstract(
@@ -19,10 +19,9 @@
   fonts = 字体 + fonts
 
   // 正式渲染
-  pagebreak(weak: true, to: if twoside { "odd" })
+  show: show-cn-fakebold
 
   [ 
-    // #v(1.27em)
     #align(center, par(
       leading: 1.0em, spacing: 1.0em,
       text(
@@ -32,16 +31,25 @@
         )
       )
     )
-    // #v(1.27em)
 
     #set text(
       font: fonts.宋体, size: 字号.小四,
       bottom-edge: 0em, top-edge: 1.0em,
     )
-    #set par(leading: leading, justify: true, spacing: spacing)
-    #par(first-line-indent: 2em, body)
-    *关键词*：#(("",)+ keywords.intersperse("；")).sum()
+    #set par(
+      leading: leading, justify: true, spacing: spacing, 
+      first-line-indent: (amount: 2em, all: true), 
+      linebreaks: "simple"
+      )
+
+    #body
+
+    #h(-2.0em)*关键词*：#(("",)+ keywords.intersperse("；")).sum()
   ]
+  pagebreak() //换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 }
 
 // 测试代码

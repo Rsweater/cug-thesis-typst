@@ -23,10 +23,10 @@
 #let 字体 = (
   // 宋体，属于「有衬线字体」，一般可以等同于英文中的 Serif Font
   // 这一行分别是「新罗马体（有衬线英文字体）」、「宋体（Windows）」、「宋体（MacOS）」
-  宋体: ("Times New Roman", "SimSun", "Songti SC"),
+  宋体: ((name: "Times New Roman", covers: "latin-in-cjk"), "SimSun", "Songti SC"),
   // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
   // 这一行分别是「新罗马体（有衬线英文字体）」、「黑体（Windows）」、「黑体（MacOS）」
-  黑体: ("Arial", "SimHei", "Heiti SC"),
+  黑体: ((name: "Arial", covers: "latin-in-cjk"), "SimHei", "Heiti SC"),
   // 楷体
   // 这一行分别是「新罗马体（有衬线英文字体）」、「锴体（Windows）」、「楷体（MacOS）」
   // 楷体: ("Times New Roman", "KaiTi", "Kaiti SC"),
@@ -35,5 +35,5 @@
   // 仿宋: ("Times New Roman", "FangSong", "FangSong SC"),
   // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
   // 这一行分别是「Courier New(等宽英文字体)」、「黑体（Windows）」、「黑体（MacOS）」、「Menlo(MacOS 等宽英文字体)」
-  等宽: ("Courier New", "SimHei", "Heiti SC", "Menlo"),
+  等宽: ((name: "Courier New", covers: "latin-in-cjk"), (name: "Menlo", covers: "latin-in-cjk"), (name: "IBM Plex Mono", covers: "latin-in-cjk"), "SimHei", "Heiti SC"),
 )

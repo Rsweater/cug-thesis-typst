@@ -1,10 +1,10 @@
 // #import "@preview/anti-matter:0.0.2": anti-front-end
 #import "../utils/style.typ": 字号, 字体
-#import "../utils/indent.typ": fake-par
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/unpairs.typ": unpairs
 #import "../utils/anonymous-info.typ": anonymous-info
+#import "../utils/word-counter.typ": *
 #import "../utils/number-per-chapter.typ": sub-figure-numbering, figure-numbering, equation-numbering
 
 #let mainmatter(
@@ -17,7 +17,7 @@
   leading: 20pt-1.0em,
   spacing: 20pt-1.0em,
   justify: true,
-  first-line-indent: 2em,
+  first-line-indent: (amount: 2em, all: true),
   numbering: custom-numbering.with(first-level: "第一章", depth: 4, "1.1"),
   // 正文字体与字号参数
   text-args: auto, // auto =>宋体、小四, 20pt
@@ -25,9 +25,9 @@
   heading-font: auto,  // auto => 黑体
   heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.小四),  // TIps: 自定义四级标题格式
   heading-weight: ("bold", "bold", "regular", "regular"),
-  heading-above: (2.0 * 1.0em, 1.0 * 1.0em, 1.0 * 1.0em, (20pt-1.0em)*0.5
+  heading-above: (2.0 * 1.0em, 1.0 * 1.0em, 1.0 * 1.0em, 
   ),  // 页面最上方的距离压缩到 0em，四级标题使用固定值20pt
-  heading-below: (2.0 * 1.0em, 1.0 * 1.0em, 1.0 * 1.0em, (20pt-1.0em)*0.5
+  heading-below: (2.0 * 1.0em, 1.0 * 1.0em, 1.0 * 1.0em, 
   ), 
   heading-pagebreak: (true, false, false, ),
   heading-align: (center, center, left, ),
@@ -48,7 +48,7 @@
 ) = {
   // 1.  默认参数
   fonts = 字体 + fonts
-  if (text-args == auto) {
+  if text-args == auto {
     text-args = (
       font: fonts.宋体, size: 字号.小四, 
       // bottom-edge: "descender", top-edge: "ascender",
@@ -58,7 +58,7 @@
   }
   
   // 1.1 字体与字号
-  if (heading-font == auto) {
+  if heading-font == auto {
     heading-font = (fonts.黑体,)
   }
   // 1.0 处理 heading- 开头的其他参数
@@ -163,7 +163,6 @@
       above: array-at(heading-above, it.level)*1.5,
       below: array-at(heading-below, it.level)*1.5,
     )
-    fake-par
   }
   show heading.where(level: 1): it => {
     v(array-at(heading-above, 1), weak: false)
@@ -171,13 +170,13 @@
   }
   // 4.3 标题居中与自动换页
   show heading: it => {
-    if (array-at(heading-pagebreak, it.level)) {
+    if array-at(heading-pagebreak, it.level) {
       // 如果打上了 no-auto-pagebreak 标签，则不自动换页
-      if ("label" not in it.fields() or str(it.label) != "no-auto-pagebreak") {
+      if "label" not in it.fields() or str(it.label) != "no-auto-pagebreak" {
         pagebreak(weak: true)
       }
     }
-    if (array-at(heading-align, it.level) != auto) {
+    if array-at(heading-align, it.level) != auto {
       set align(array-at(heading-align, it.level))
       it
     } else {
@@ -209,14 +208,36 @@
       footer-descent: 1.0cm  // 3.0 - 1.0 = 2.0cm 页脚下边距
   ))
   counter(page).update(1)
+
+  show link: it => {
+    underline(text(rgb(0, 0, 255), it))
+  }
+
+  // 列表样式
+  set enum(indent: 0.9em, body-indent: 0.35em)
+  set list(indent: 1.2em, body-indent: 0.6em)
+
+  // 引述文本样式
+  // show quote: set text(font: fonts.楷体)
+  show quote: set pad(x: 2em)
+
+  set underline(stroke: 0.5pt + black, offset: 0.35em)
+
+  // 字数统计（正文 + 附录）
+  //   typst query main.typ '<total-words>' 2>/dev/null --field value --one
+  context [
+    #metadata(state("total-words-cjk").final()) <total-words>
+    #metadata(state("total-characters").final()) <total-chars>
+  ]
+
   it
 }
 
 // test code
-// #import "../mythesis/test-text.typ": test-text, mainmatter-parms
-// #set text(fallback: false, lang: "zh", region: "CN")
-// #set page(margin: (x: 3cm, y: 3cm))
-// #mainmatter(
-//   ..mainmatter-parms,
-//   test-text
-// )
+#import "../mythesis/others/test-text.typ": test-text, mainmatter-parms
+#set text(fallback: false, lang: "zh", region: "CN")
+#set page(margin: (x: 3cm, y: 3cm))
+#mainmatter(
+  ..mainmatter-parms,
+  test-text
+)

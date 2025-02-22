@@ -20,10 +20,12 @@
 #import "utils/bilingual-bibliography.typ": bilingual-bibliography
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
-#import "utils/indent.typ": indent, fake-par
+#import "utils/word-counter.typ": *
 #import "utils/style.typ": 字体, 字号
 #import "utils/number-per-chapter.typ": subpar-grid
-#import "@preview/anti-matter:0.0.2": anti-inner-end as mainmatter-end
+
+#let indent = h(2em)
+#let no-indent = h(-2em)
 
 // 使用函数闭包特性，通过 `documentclass` 函数类进行全局信息配置，然后暴露出拥有了全局配置的、具体的 `layouts` 和 `templates` 内部函数。
 #let documentclass(
@@ -92,7 +94,7 @@
     email: "xyz@smail.nju.edu.cn",
   ) + info
 
-  (
+  return (
     // 将传入参数再导出
     doctype: info.doctype,
     degree: info.degree,
@@ -127,11 +129,7 @@
         )
       }
     },
-    mainmatter-end: (..args) => {
-      mainmatter-end(
-        ..args,
-      )
-    },
+
     appendix: (..args) => {
       appendix(
         ..args,
