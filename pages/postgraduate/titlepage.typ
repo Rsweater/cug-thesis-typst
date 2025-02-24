@@ -251,6 +251,6 @@
   }
 }
 
-// 封面测试代码
-#import "../../mythesis/others/test-text.typ": thesis-info  
-#show: postgraduate-titlepage(info: thesis-info, anonymous: true)
+// // 封面测试代码
+// #import "../../mythesis/others/test-text.typ": thesis-info  
+// #show: postgraduate-titlepage(info: thesis-info, anonymous: true)
