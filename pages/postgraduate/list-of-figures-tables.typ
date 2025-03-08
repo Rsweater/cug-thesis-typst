@@ -49,6 +49,11 @@
     v(title-vspace)
   }
   outline(target: figure.where(kind: image), title: none)
+  // 手动分页
+  pagebreak(weak: true) //换页
+  if twoside {
+    pagebreak() // 空白页
+  }
 
   // 显示表清单
   v(title-vspace)

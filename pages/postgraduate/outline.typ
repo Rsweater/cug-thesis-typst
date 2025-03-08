@@ -7,7 +7,7 @@
   twoside: false,
   fonts: (:),
   // 其他参数
-  depth: 3,
+  depth: 4,
   title: "目　　录",
   outlined: false,
   title-vspace: 1em,
@@ -17,11 +17,11 @@
   reference-size: 字号.小四,
   // 字体与字号
   font: auto,
-  size: (字号.四号, 字号.小四, 字号.小四),
+  size: (字号.四号, 字号.小四, 字号.小四, 字号.小四),
   // 垂直间距
-  above: (20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em),
-  below: (20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em),
-  indent: (0pt, 1em, 2em,),
+  above: (20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em),
+  below: (20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em, 20pt-1em),
+  indent: (0pt, 1em, 2em, 3em),
   // 全都显示点号
   fill: (repeat([.], gap: 0.15em),),
   gap: .3em,
