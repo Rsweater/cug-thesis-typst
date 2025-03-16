@@ -23,7 +23,7 @@
 #import "utils/word-counter.typ": *
 #import "utils/style.typ": 字体, 字号
 #import "utils/number-per-chapter.typ": subpar-grid
-#import "utils/code-figure.typ": code-figure
+#import "utils/code-figure.typ": code-figure, algorithm-figure
 
 #let indent = h(2em)
 #let no-indent = h(-2em)

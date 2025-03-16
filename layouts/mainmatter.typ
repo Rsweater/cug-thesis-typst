@@ -7,6 +7,7 @@
 #import "../utils/word-counter.typ": *
 #import "../utils/number-per-chapter.typ": sub-figure-numbering, figure-numbering, equation-numbering
 
+
 #let mainmatter(
   // documentclass 传入参数
   twoside: false,
@@ -105,7 +106,6 @@
   )
   // show: show-cn-fakebold
   // show: fix-indent()
-  show raw: set text(font: fonts.等宽)
 
   // 4.  处理标题
   // 4.1 设置标题的 Numbering
@@ -206,6 +206,27 @@
   }
   show figure: set figure(numbering: figure-numbering)
   show math.equation: set math.equation(numbering: equation-numbering)
+
+  show raw.where(block: false): box.with(
+    fill: rgb("#fafafa"),
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 2pt,
+  )
+  show raw.where(block: false): text.with(
+    font: 字体.等宽,
+    size: 10.5pt,
+  )
+  show raw.where(block: true): block.with(
+    fill: rgb("#fafafa"),
+    inset: 8pt,
+    radius: 4pt,
+    width: 100%,
+  )
+  show raw.where(block: true): text.with(
+    font: 字体.等宽,
+    size: 10.5pt,
+  )
   // 3.3 设置 figure 的编号
   // show heading: i-figured.reset-counters
   // show figure: show-figure
@@ -216,8 +237,8 @@
     kind: table
   ): set figure.caption(position: top)
   set figure.caption(separator: h(separator))
-  show figure.caption: set text(font: fonts.宋体, size: 字号.五号)
-  show figure.caption: set par(leading: caption-leading)
+  show figure: set text(font: fonts.宋体, size: 字号.五号)
+  show figure: set par(leading: caption-leading)
   // 表格可跨页
   show figure: set block(breakable: true)
   // 3.6 优化列表显示
