@@ -19,7 +19,7 @@
   spacing: 20pt-1.0em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
-  numbering: custom-numbering.with(first-level: "第一章", depth: 4, "1.1"),
+  numbering: custom-numbering.with(first-level: "第一章   ", depth: 4, "1.1   "),
   // 正文字体与字号参数
   text-args: auto, // auto =>宋体、小四, 20pt
   // 标题字体与字号
@@ -104,15 +104,71 @@
     first-line-indent: first-line-indent, 
     linebreaks: "simple" // 避免压缩CJK标点符号，与 Word 默认保持一致
   )
-  // show: show-cn-fakebold
-  // show: fix-indent()
+  show raw.where(block: false): box.with(
+    fill: rgb("#fafafa"),
+    inset: (x: 3pt, y: 0pt),
+    outset: (y: 3pt),
+    radius: 2pt,
+  )
+  show raw.where(block: false): text.with(
+    font: 字体.等宽,
+    size: 10.5pt,
+  )
+  show raw.where(block: true): block.with(
+    fill: rgb("#fafafa"),
+    inset: 8pt,
+    radius: 4pt,
+    width: 100%,
+  )
+  show raw.where(block: true): text.with(
+    font: 字体.等宽,
+    size: 10.5pt,
+  )
+
+  // 3.2 脚注样式
+  show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
+  // set heading(numbering: "1.1")
+  show heading.where(level: 1): it => {
+    counter(math.equation).update(0)
+    counter(figure.where(kind: image)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(figure.where(kind: raw)).update(0)
+    it
+  }
+  show figure.caption: it => {
+    let pattern = "^[^:]+" + sym.space.nobreak + "[\d.]+"
+    show regex(pattern): strong
+    show regex(pattern): emph
+    // show regex(pattern): set text(weight: "bold")
+    // show regex(pattern): set text(style: "italic")
+    it
+  }
+  show figure: set figure(numbering: figure-numbering)
+  show math.equation: set math.equation(numbering: equation-numbering)
+
+  // 3.3 设置 figure 的编号
+  // show heading: i-figured.reset-counters
+  // show figure: show-figure
+  // 3.4 设置 equation 的编号和假段落首行缩进
+  // show math.equation.where(block: true): show-equation
+  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
+  show figure.where(
+    kind: table
+  ): set figure.caption(position: top)
+  set figure.caption(separator: h(separator))
+  show figure: set text(font: fonts.宋体, size: 字号.五号)
+  show figure: set par(leading: caption-leading)
+  // 表格可跨页
+  show figure: set block(breakable: true)
+  // 3.6 优化列表显示
+  //     术语列表 terms 不应该缩进
+  show terms: set par(first-line-indent: 0pt)
 
   // 4.  处理标题
   // 4.1 设置标题的 Numbering
   set heading(numbering: numbering)
   // 4.2 设置字体字号并加入假段落模拟首行缩进
   show heading: it => {
-    set par(leading: 1.0em, spacing: 1.0em)
     set text(
       bottom-edge: 0em, top-edge: 1.0em,
       font: array-at(heading-font, it.level),
@@ -121,11 +177,11 @@
       ..unpairs(heading-text-args-lists
         .map((pair) => (pair.at(0), array-at(pair.at(1), it.level))))
     )
-    block(
-      counter(heading).display() + h(1em) + it.body,
+    set block(
       above: array-at(heading-above, it.level)*1.5,
       below: array-at(heading-below, it.level)*1.5,
     )
+    it
   }
   show heading.where(level: 1): it => {
     v(array-at(heading-above, 1), weak: false)
@@ -170,11 +226,10 @@
       header-ascent: 0.5cm,  // 3.0 - 0.5 = 2.5cm 页眉上边距
       footer-descent: 1.0cm  // 3.0 - 1.0 = 2.0cm 页脚下边距
   ))
-  counter(page).update(1)
 
-  show link: it => {
-    underline(text(rgb(0, 0, 255), it))
-  }
+  // show link: it => {
+  //   underline(text(rgb(0, 0, 255), it))
+  // }
 
   // 列表样式
   set enum(indent: 0.9em, body-indent: 0.35em)
@@ -186,71 +241,13 @@
 
   set underline(stroke: 0.5pt + black, offset: 0.35em)
 
-  // 3.2 脚注样式
-  show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
-  set heading(numbering: "1.1")
-  show heading.where(level: 1): it => {
-    counter(math.equation).update(0)
-    counter(figure.where(kind: image)).update(0)
-    counter(figure.where(kind: table)).update(0)
-    counter(figure.where(kind: raw)).update(0)
-    it
-  }
-  show figure.caption: it => {
-    let pattern = "^[^:]+" + sym.space.nobreak + "[\d.]+"
-    show regex(pattern): strong
-    show regex(pattern): emph
-    // show regex(pattern): set text(weight: "bold")
-    // show regex(pattern): set text(style: "italic")
-    it
-  }
-  show figure: set figure(numbering: figure-numbering)
-  show math.equation: set math.equation(numbering: equation-numbering)
-
-  show raw.where(block: false): box.with(
-    fill: rgb("#fafafa"),
-    inset: (x: 3pt, y: 0pt),
-    outset: (y: 3pt),
-    radius: 2pt,
-  )
-  show raw.where(block: false): text.with(
-    font: 字体.等宽,
-    size: 10.5pt,
-  )
-  show raw.where(block: true): block.with(
-    fill: rgb("#fafafa"),
-    inset: 8pt,
-    radius: 4pt,
-    width: 100%,
-  )
-  show raw.where(block: true): text.with(
-    font: 字体.等宽,
-    size: 10.5pt,
-  )
-  // 3.3 设置 figure 的编号
-  // show heading: i-figured.reset-counters
-  // show figure: show-figure
-  // 3.4 设置 equation 的编号和假段落首行缩进
-  // show math.equation.where(block: true): show-equation
-  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
-  show figure.where(
-    kind: table
-  ): set figure.caption(position: top)
-  set figure.caption(separator: h(separator))
-  show figure: set text(font: fonts.宋体, size: 字号.五号)
-  show figure: set par(leading: caption-leading)
-  // 表格可跨页
-  show figure: set block(breakable: true)
-  // 3.6 优化列表显示
-  //     术语列表 terms 不应该缩进
-  show terms: set par(first-line-indent: 0pt)
-
   // 字数统计（正文 + 附录）
   //   typst query main.typ '<total-words>' 2>/dev/null --field value --one
   context [
     #metadata(state("total-words-cjk").final()) <total-words>
     #metadata(state("total-characters").final()) <total-chars>
   ]
+  counter(page).update(1)
 
   it
 }
