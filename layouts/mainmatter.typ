@@ -243,6 +243,16 @@
 
   set underline(stroke: 0.5pt + black, offset: 0.35em)
 
+  show ref: it => {
+    if it.element == none {
+      // Keep citations as is
+      it
+    } else {
+    // Remove spacing
+    it + h(-1em, weak: true)
+    }
+  }
+
   // 字数统计（正文 + 附录）
   //   typst query main.typ '<total-words>' 2>/dev/null --field value --one
   context [
