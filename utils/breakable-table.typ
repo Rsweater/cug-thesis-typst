@@ -8,12 +8,13 @@
 #show figure: set block(breakable: true)
 
 
-#let breakable-table(label: none, caption: none, header: (), ..args) = [
+#let breakable-table(columns:auto, label: none, caption: none, header: (), ..args) = [
   #figure(
     table(
+      columns: columns,
       table.header(
         table.cell(
-          colspan: 3,
+          colspan: columns,
           {
             context if xubiao.get() {
               ref(label)+h(1em)+"(续)"
