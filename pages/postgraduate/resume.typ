@@ -13,6 +13,10 @@
   // 默认参数
   info = (
     // 1. 基本情况信息
+    info-header:"一、基本情况",
+    thesises-header: "二、学术论文",
+    awards-header: "三、获奖、专利情况",
+    projects-header: "四、研究项目",
     name:"张三", 
     gender: "男", 
     nation: "汉族", 
@@ -79,45 +83,52 @@
   font: 字体.宋体, size: 字号.小四, 
   top-edge: (20pt-1.0em)*0.7, bottom-edge: (20pt-1.0em)*0.3
   )
-  // 1. 基本情况
-  block[
-    #text(font: 字体.黑体, size: 字号.小四)[一、基本情况]
-    #set par(
-      leading: 1.0em, linebreaks: "simple", first-line-indent: (amount: 2em, all: true))
-    
-    姓名：#info.name;#h(2em);性别：#info.gender;#h(2em);民族：#info.nation;#h(2em);出生日期：#info.birthday;#h(2em);籍贯: #info.native-place;
+  // 1. 
+  if info.len() != 0 {
+    block[
+      #text(info.info-header, font: 字体.黑体, size: 字号.小四)
+      #set par(
+        leading: 1.0em, linebreaks: "simple", first-line-indent: (amount: 2em, all: true))
+      
+      姓名：#info.name;#h(2em);性别：#info.gender;#h(2em);民族：#info.nation;#h(2em);出生日期：#info.birthday;#h(2em);籍贯: #info.native-place;
 
-    #h(4em);#info.bachelor-time;#h(2em);#info.bachelor-school;#info.bachelor-type;
+      #h(4em);#info.bachelor-time;#h(2em);#info.bachelor-school;#info.bachelor-type;
 
-    #h(4em);#info.master-time;#h(2em);#info.master-school;#info.master-type;
-    
-    #if info.doctor-time != "" {
-      h(4em);info.doctor-time;h(2em);info.doctor-school;info.doctor-type;
-    }
-  ]
-  
+      #h(4em);#info.master-time;#h(2em);#info.master-school;#info.master-type;
+      
+      #if info.doctor-time != "" {
+        h(4em);info.doctor-time;h(2em);info.doctor-school;info.doctor-type;
+      }
+    ]
+  }
   // 2. 学术论文
-  block[
-    #text(font: 字体.黑体, size: 字号.小四)[二、学术论文]
-    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
-    
-    #info.thesises.join("\n");
-  ]
+  if info.thesises.len() != 0 {
+    block[
+      #text(info.thesises-header, font: 字体.黑体, size: 字号.小四)
+      #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+      
+      #info.thesises.join("\n"); 
+    ]
+  }
   
   // 3. 获奖、专利情况
-  block[
-    #text(font: 字体.黑体, size: 字号.小四)[三、获奖、专利情况]
-    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
-    
-    #info.awards.join("\n");
-  ]
+  if info.awards.len() != 0 {
+    block[
+      #text(info.awards-header, font: 字体.黑体, size: 字号.小四)
+      #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+      
+      #info.awards.join("\n");
+    ]
+  }
   // 4. 研究项目
-  block[
-    #text(font: 字体.黑体, size: 字号.小四)[四、研究项目]
-    #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
-    
-    #info.projects.join("\n");
-  ]
+  if info.projects.len() != 0 {
+    block[
+      #text(info.projects-header, font: 字体.黑体, size: 字号.小四)
+      #set par(leading: 1.0em, first-line-indent: (amount: 2em, all: true), hanging-indent: 2em)
+      
+      #info.projects.join("\n");
+    ] 
+  }
   pagebreak() //换页
   if twoside {
     pagebreak() // 空白页
