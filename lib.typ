@@ -24,6 +24,7 @@
 #import "utils/style.typ": 字体, 字号
 #import "utils/number-per-chapter.typ": subpar-grid
 #import "utils/code-figure.typ": code-figure, algorithm-figure
+#import "utils/breakable-table.typ": breakable-table
 
 #let indent = h(2em)
 #let no-indent = h(-2em)

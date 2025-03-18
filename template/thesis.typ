@@ -1,7 +1,7 @@
 // 在线包管理器模式
 // #import "@preview/modern-cug-thesis:0.2.6": documentclass, indent, no-indent, subpar-grid
 // 本地模式
-#import "../lib.typ": documentclass, indent, no-indent, subpar-grid, word-count-cjk, total-words
+#import "../lib.typ": documentclass, indent, no-indent, subpar-grid, breakable-table, word-count-cjk, total-words
 
 // 本模板使用的字体是 Windows、MacOS 系统自带的，本地使用理论上不需要额外安装。
 // 如果是 Web App 上编辑，你需要上传 https://github.com/Rsweater/cug-thesis-typst/tree/main/fonts/Windows-SysFonts 里面所有字体，将 fonts 文件夹上传至模板创建的项目根目录即可，否则 CJK 字符可能无法正常显示。
@@ -275,7 +275,7 @@ Typst 编辑模式有两种。一种是标记模式，一种是脚本模式。
 ) <figure:cug-logo>
 
 
-=== 图标测试小节
+=== 图表测试小节
 #let fake-image = block(stroke: red, inset: 1em, lorem(10))
 #figure(fake-image, caption: [aaa])
 
@@ -318,7 +318,21 @@ See @figure:full1, @figure:a and @figure:b.
 
 See also @figure:full2, @figure:c and @figure:d.
 
+=== 续表格式
+#breakable-table(
+  columns: 3, stroke:none,
+  label: <tbl-1>,
+  header: ([标题1], [标题2], [标题3]),
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+  [11111], [22222], [33333], 
+)
 
+=== placement参数
 #figure(
   fake-image,
   placement: bottom,

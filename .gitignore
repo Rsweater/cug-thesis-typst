@@ -1,2 +1,6 @@
 mythesis
 *.code-workspace
+
+# local histoty files
+.history
+.lh
