@@ -5,7 +5,7 @@
   bibliography: none,
   title: "参考文献",
   full: false,
-  style: "gb-t-7714-2005-numeric-cug.csl",
+  style: "gb-7714-2005-numeric",
   mapping: (:),
   extra-comma-before-et-al-trans: false,
   // 用于控制多位译者时表现为 `et al. tran`(false) 还是 `et al., tran`(true)

@@ -22,6 +22,7 @@
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "utils/word-counter.typ": *
 #import "utils/style.typ": 字体, 字号
+#import "utils/justify-text.typ": justify-text, distr
 #import "utils/number-per-chapter.typ": subpar-grid
 #import "utils/code-figure.typ": code-figure, algorithm-figure
 #import "utils/breakable-table.typ": breakable-table
