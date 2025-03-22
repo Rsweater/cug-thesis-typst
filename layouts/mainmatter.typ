@@ -19,7 +19,7 @@
   spacing: 20pt-1.0em,
   justify: true,
   first-line-indent: (amount: 2em, all: true),
-  numbering: custom-numbering.with(first-level: "第一章   ", depth: 4, "1.1   "),
+  custom-numbering: custom-numbering.with(first-level: "第一章   ", depth: 4, "1.1   "),
   // 正文字体与字号参数
   text-args: auto, // auto =>宋体、小四, 20pt
   // 标题字体与字号
@@ -128,6 +128,11 @@
   // 3.2 脚注样式
   show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
   // set heading(numbering: "1.1")
+  // 子图编号
+  // let sub-figure-numbering = (super, sub) => numbering("1.1a", counter(heading).get().first(), super, sub)
+  // let figure-numbering = super => numbering("1.1", counter(heading).get().first(), super)
+  // let equation-numbering = super => numbering("（1.1）", counter(heading).get().first(), super)
+  // set heading(numbering: "1.1")
   show heading.where(level: 1): it => {
     counter(math.equation).update(0)
     counter(figure.where(kind: image)).update(0)
@@ -168,7 +173,7 @@
 
   // 4.  处理标题
   // 4.1 设置标题的 Numbering
-  set heading(numbering: numbering)
+  set heading(numbering: custom-numbering)
   // 4.2 设置字体字号并加入假段落模拟首行缩进
   show heading: it => {
     set text(
