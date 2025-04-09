@@ -1,6 +1,8 @@
-mythesis
+mythesis/
 *.code-workspace
 
-# local histoty files
-.history
-.lh
+# local history files
+.history/
+.hl
+*.zip
+*.7z

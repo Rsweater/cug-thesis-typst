@@ -5,7 +5,7 @@
 #import "../utils/unpairs.typ": unpairs
 #import "../utils/anonymous-info.typ": anonymous-info
 #import "../utils/word-counter.typ": *
-#import "../utils/number-per-chapter.typ": sub-figure-numbering, figure-numbering, equation-numbering
+#import "../utils/number-per-chapter.typ": sub-figure-numbering, figure-numbering, equation-numbering, raw-numbering
 
 
 #let mainmatter(
@@ -150,6 +150,7 @@
   }
   show figure: set figure(numbering: figure-numbering)
   show math.equation: set math.equation(numbering: equation-numbering)
+  show figure.where(kind: raw): set figure(numbering: raw-numbering)
 
   // 3.3 设置 figure 的编号
   // show heading: i-figured.reset-counters

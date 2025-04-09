@@ -1,8 +1,9 @@
-#import "@preview/subpar:0.2.1"
+#import "@preview/subpar:0.2.2"
 
 #let sub-figure-numbering = (super, sub) => numbering("1.1a", counter(heading).get().first(), super, sub)
 #let figure-numbering = super => numbering("1.1", counter(heading).get().first(), super)
 #let equation-numbering = super => numbering("（1.1）", counter(heading).get().first(), super)
+#let raw-numbering = super => numbering("1-1", counter(heading).get().first(), super)
 
 #set heading(numbering: "1.1")
 // #show heading.where(level: 1): it => {
