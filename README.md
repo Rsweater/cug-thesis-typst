@@ -42,18 +42,21 @@
 2. **安装插件**：在 VS Code 中安装 [Tinymist Typst](https://marketplace.visualstudio.com/items?itemName=myriad-dreamin.tinymist)
 3. **准备项目文件**：
 
-   - **方法一：Fork Repo**。去[项目页面](https://github.com/Rsweater/cug-thesis-typst)Fork ，随后使用命令 `git clone https://github.com/<you github username>/cug-thesis-typst.git` 将整个项目克隆到本地，寻找 `template/thesis.typ`。
+   - **方法一：Clone Repo**。使用命令 `git clone https://github.com/Rsweater/cug-thesis-typst.git` 将整个项目克隆到本地，寻找 `template/thesis.typ`。
    - **方法二：使用 Typst Packages**。按下 `Ctrl + Shift + P` 打开命令界面，输入 `Typst: Show available Typst templates (gallery) for picking up a template` 打开 Tinymist 提供的 Template Gallery，然后从里面找到 `cug-thesis`，点击 `❤` 按钮进行收藏，以及点击 `+` 号，就可以创建对应的论文模板了，会出现 `ref.bib` 以及 `thesis.typ`。
 4. 打开开始编写论文内容~
+
+**小建议：** 对项目中 `template`文件夹进行复制并重命名，如 `mythesis`。随后，在 `mythesis`中的 `thesis.typ`中进行论文内容的编写。**好处：**项目中样式更新fetch repo，可以很大程度上减小使用者的影响。
 
 **版本提醒：** 请确保本地已安装 Typst，**推荐使用最新版本。** 下面是推荐的 Typst、VS Code 插件与模板版本的对应关系：
 
 > 如果是Typst 0.12.0 版本的老用户，仅仅需要在命令行使用 `typst update`即可。其中，VS Code插件版本也需要对应，建议设置为自动更新插件。
 
-| Typst 版本 | 模板版本 | Tinymist Typst插件 |                         主要更新内容                         |
-| :--------: | :------: | :----------------: | :----------------------------------------------------------: |
-|   0.13.0   |  0.2.6  |      0.12.21      | 最后一个已知问题：<br />首段首行缩进对于标题垂直间距产生影响 |
-|   0.12.0   |  0.2.5  |      0.12.19      |                     第一个比较完善的版本                     |
+| Typst 版本 | 模板版本 | Tinymist Typst插件 |             主要更新内容             |
+| :--------: | :------: | :----------------: | :----------------------------------: |
+|   0.13.x   |          |                    |                                      |
+|   0.13.0   |  0.2.6  |      0.12.21      | 首段首行缩进对于标题垂直间距产生影响 |
+|   0.12.0   |  0.2.5  |      0.12.19      |         第一个比较完善的版本         |
 
 ## Q&A
 
